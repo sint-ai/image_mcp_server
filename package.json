@@ -1,0 +1,49 @@
+{
+    "version": "0.1.0",
+    "description": "A Model Context Protocol server allows to generate images.",
+    "type": "module",
+    "main": "build/index.js",
+    "engines": {
+        "node": ">=22.0.0"
+    },
+    "bin": {
+        "twitter-server": "./build/index.js"
+    },
+    "files": [
+        "build",
+        "README.md"
+    ],
+    "scripts": {
+        "start": "tsx ./src/index.ts",
+        "check-types": "tsc --noemit"
+    },
+    "keywords": [
+        "mcp",
+        "modelcontextprotocol",
+        "server",
+        "twitter",
+        "claude"
+    ],
+    "author": "Enes Cinar",
+    "license": "MIT",
+    "dependencies": {
+        "@anthropic-ai/sdk": "^0.40.0",
+        "@modelcontextprotocol/sdk": "1.11.0",
+        "@t3-oss/env-core": "^0.12.0",
+        "dotenv": "^16.4.7",
+        "express": "^5.0.1",
+        "lodash": "^4.17.21",
+        "minio": "^8.0.5",
+        "openai": "^4.96.0",
+        "pino": "^9.6.0",
+        "pino-pretty": "^13.0.0",
+        "tsx": "^4.19.3",
+        "zod": "^3.24.2"
+    },
+    "devDependencies": {
+        "@types/express": "^5.0.0",
+        "@types/lodash": "^4.17.16",
+        "@types/node": "^20.11.24",
+        "typescript": "^5.3.3"
+    }
+}
