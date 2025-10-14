@@ -19,7 +19,6 @@ process.on('unhandledRejection', error => {
     console.error('Unhandled rejection:', error);
 });
 
-
 const app = express();
 app.use(express.json());
 
