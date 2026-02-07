@@ -94,7 +94,7 @@ describe('mcp.ts', () => {
                 data: [{ b64_json: Buffer.from('test image').toString('base64') }],
             } as any);
 
-            await toolHandlers['create_meme']({ input: 'funny cat meme' });
+            await toolHandlers['create_meme']({ input: 'funny cat meme' }, {});
 
             expect(refinePrompt).toHaveBeenCalledWith('funny cat meme');
         });
@@ -104,7 +104,7 @@ describe('mcp.ts', () => {
                 data: [{ b64_json: Buffer.from('test image').toString('base64') }],
             } as any);
 
-            await toolHandlers['create_meme']({ input: 'funny cat meme' });
+            await toolHandlers['create_meme']({ input: 'funny cat meme' }, {});
 
             expect(openai.images.edit).toHaveBeenCalledWith(
                 expect.objectContaining({
@@ -121,7 +121,7 @@ describe('mcp.ts', () => {
                 data: [{ b64_json: Buffer.from('test image').toString('base64') }],
             } as any);
 
-            await toolHandlers['create_meme']({ input: 'funny cat meme' });
+            await toolHandlers['create_meme']({ input: 'funny cat meme' }, {});
 
             expect(uploadToS3).toHaveBeenCalledWith(
                 'test-bucket',
@@ -135,7 +135,7 @@ describe('mcp.ts', () => {
                 data: [{ b64_json: Buffer.from('test image').toString('base64') }],
             } as any);
 
-            const result = await toolHandlers['create_meme']({ input: 'funny cat meme' });
+            const result = await toolHandlers['create_meme']({ input: 'funny cat meme' }, {});
 
             expect(result.content[0].text).toContain('Generated images urls');
             expect(result.content[0].text).toContain('http://localhost:9000/test-bucket/public/');
@@ -148,7 +148,7 @@ describe('mcp.ts', () => {
                 data: [],
             } as any);
 
-            const result = await toolHandlers['create_meme']({ input: 'funny cat meme' });
+            const result = await toolHandlers['create_meme']({ input: 'funny cat meme' }, {});
 
             // Actual behavior: throws error due to missing optional chaining
             expect(result.content[0].text).toContain('Error message:');
@@ -159,7 +159,7 @@ describe('mcp.ts', () => {
                 data: [{ url: 'http://example.com/image.png' }],
             } as any);
 
-            const result = await toolHandlers['create_meme']({ input: 'funny cat meme' });
+            const result = await toolHandlers['create_meme']({ input: 'funny cat meme' }, {});
 
             expect(result.content[0].text).toBe('No image generated');
         });
@@ -167,7 +167,7 @@ describe('mcp.ts', () => {
         it('should handle errors gracefully', async () => {
             vi.mocked(openai.images.edit).mockRejectedValue(new Error('API rate limit exceeded'));
 
-            const result = await toolHandlers['create_meme']({ input: 'funny cat meme' });
+            const result = await toolHandlers['create_meme']({ input: 'funny cat meme' }, {});
 
             expect(result.content[0].text).toContain('Error message: API rate limit exceeded');
         });
@@ -175,7 +175,7 @@ describe('mcp.ts', () => {
         it('should handle refinePrompt errors', async () => {
             vi.mocked(refinePrompt).mockRejectedValueOnce(new Error('Refinement failed'));
 
-            const result = await toolHandlers['create_meme']({ input: 'funny cat meme' });
+            const result = await toolHandlers['create_meme']({ input: 'funny cat meme' }, {});
 
             expect(result.content[0].text).toContain('Error message: Refinement failed');
         });
@@ -186,7 +186,7 @@ describe('mcp.ts', () => {
             } as any);
             vi.mocked(uploadToS3).mockRejectedValueOnce(new Error('S3 upload failed'));
 
-            const result = await toolHandlers['create_meme']({ input: 'funny cat meme' });
+            const result = await toolHandlers['create_meme']({ input: 'funny cat meme' }, {});
 
             expect(result.content[0].text).toContain('Error message: S3 upload failed');
         });
