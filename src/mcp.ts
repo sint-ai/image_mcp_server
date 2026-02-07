@@ -39,7 +39,7 @@ export const createMcp = () => {
     'create_meme',
     'Create a meme from user input',
     {
-      input: z.string({ description: 'User input, description of the meme' }),
+      input: z.string().describe('User input, description of the meme'),
     },
     async ({ input }) => {
       try {
