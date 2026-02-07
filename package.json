@@ -15,7 +15,9 @@
     ],
     "scripts": {
         "start": "tsx ./src/index.ts",
-        "check-types": "tsc --noemit"
+        "check-types": "tsc --noemit",
+        "test": "vitest run",
+        "test:watch": "vitest"
     },
     "keywords": [
         "mcp",
@@ -44,6 +46,7 @@
         "@types/express": "^5.0.0",
         "@types/lodash": "^4.17.16",
         "@types/node": "^20.11.24",
-        "typescript": "^5.3.3"
+        "typescript": "^5.3.3",
+        "vitest": "^4.0.18"
     }
 }
